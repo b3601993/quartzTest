@@ -9,6 +9,8 @@ public class JobC implements Job {
 	@Override
 	public void execute(JobExecutionContext paramJobExecutionContext) throws JobExecutionException {
 		System.out.println("Job C is runing");
+		System.out.println("测试");
+
 	}
 
 }
