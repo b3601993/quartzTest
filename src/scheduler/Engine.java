@@ -13,6 +13,7 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.impl.matchers.KeyMatcher;
 
 import job.HelloJob;
+import job.MongodbTimestamp;
 import listener.HelloJobListener;
 
 public class Engine {
@@ -23,7 +24,7 @@ public class Engine {
 				
 				
 		//我要跑的job
-		JobDetail job = JobBuilder.newJob(HelloJob.class).withIdentity(jobKey).build();
+		JobDetail job = JobBuilder.newJob(MongodbTimestamp.class).withIdentity(jobKey).build();
 		
 		//触发器：多久触发一次
 		Trigger trigger = TriggerBuilder.newTrigger().withIdentity("yutaoTrigger", "group1").withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?")).build();
@@ -32,9 +33,8 @@ public class Engine {
 		
 		
 		Scheduler scheduler = schedFact.getScheduler();
-		scheduler.getListenerManager().addJobListener(new HelloJobListener(), KeyMatcher.keyEquals(jobKey));
+//		scheduler.getListenerManager().addJobListener(new HelloJobListener(), KeyMatcher.keyEquals(jobKey));
 		scheduler.start();
 		scheduler.scheduleJob(job, trigger);
-		
 	}
 }
